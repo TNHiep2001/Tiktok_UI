@@ -30,7 +30,7 @@ function App() {
                                         <Page></Page>
                                     </Layout>
                                 }
-                            ></Route>
+                            />
                         );
                     })}
                 </Routes>
