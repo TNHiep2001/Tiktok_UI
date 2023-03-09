@@ -6,6 +6,8 @@ import {
     faPause,
     faPlay,
     faShareNodes,
+    faVolumeLow,
+    faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
@@ -23,7 +25,8 @@ const cx = classNames.bind(styles);
 function HomeItems({ srcImg, srcVideo, following }) {
     const [colorHeart, setColorHeart] = useState(true);
     const [eventVideo, setEventVideo] = useState(true);
-    const [valueVolume, setValueVolume] = useState(50);
+    const [valueVolume, setValueVolume] = useState(0);
+    const [actionVolume, setActionVolume] = useState(true);
 
     const vidRef = useRef();
     const volumeRef = useRef();
@@ -45,8 +48,10 @@ function HomeItems({ srcImg, srcVideo, following }) {
             if (videoBottom < 310 || videoBottom > window.innerHeight + 250) {
                 // Video đang phát, dừng nó
                 vidRef.current.pause();
+                setEventVideo(false);
             } else {
                 vidRef.current.play();
+                setEventVideo(true);
             }
         }
 
@@ -89,6 +94,21 @@ function HomeItems({ srcImg, srcVideo, following }) {
     const handleChangeVolume = (e) => {
         setValueVolume(e.target.value);
         vidRef.current.muted = false;
+        setActionVolume(false);
+        if (e.target.value <= 0) {
+            setActionVolume(true);
+        }
+    };
+
+    const handleVolume = () => {
+        if (actionVolume) {
+            setActionVolume(!actionVolume);
+            setValueVolume(50);
+            vidRef.current.muted = false;
+        } else {
+            setActionVolume(!actionVolume);
+            setValueVolume(0);
+        }
     };
 
     return (
@@ -146,11 +166,19 @@ function HomeItems({ srcImg, srcVideo, following }) {
                         ) : (
                             <FontAwesomeIcon icon={faPlay} className={cx('play-btn')} onClick={handleOnOffVideo} />
                         )}
+
+                        {actionVolume ? (
+                            <FontAwesomeIcon icon={faVolumeXmark} className={cx('mute-btn')} onClick={handleVolume} />
+                        ) : (
+                            <FontAwesomeIcon icon={faVolumeLow} className={cx('unmute-btn')} onClick={handleVolume} />
+                        )}
+
                         <input
                             ref={volumeRef}
                             type="range"
                             min="0"
                             max="100"
+                            value={valueVolume}
                             className={cx('volume')}
                             onChange={handleChangeVolume}
                         />

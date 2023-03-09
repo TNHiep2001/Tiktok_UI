@@ -100,16 +100,27 @@
     cursor: pointer;
 }
 
+.mute-btn,
+.unmute-btn {
+    position: absolute;
+    padding: 20px;
+    right: 292px;
+    bottom: 16px;
+    font-size: 2.2rem;
+    color: var(--white);
+    cursor: pointer;
+}
+
 input[type='range'] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     position: absolute;
-    bottom: 40px;
+    bottom: 46px;
     right: 226px;
     width: 74px;
-    height: 4px;
-    background-color: #d3d3d3;
+    height: 2px;
+    background-color: var(--white);
     border-radius: 10px;
     outline: none;
     padding: 0;
@@ -118,8 +129,8 @@ input[type='range'] {
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     background-color: var(--white);
     border-radius: 50%;
     cursor: pointer;
