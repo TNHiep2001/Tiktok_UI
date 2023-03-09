@@ -59,6 +59,10 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
+    const componentDidMount = () => {
+        window.scrollTo(0, 0);
+    };
+
     const handleMenuChange = (MenuItem) => {
         console.log(MenuItem);
     };
@@ -93,7 +97,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link className={cx('logo')} to={config.routes.home}>
+                <Link className={cx('logo')} to={config.routes.home} onClick={componentDidMount}>
                     <img src={images.logo} alt="tiktok" />
                 </Link>
 
