@@ -22,22 +22,18 @@ const renderPreview = (props) => {
     );
 };
 
-function AccountItem() {
+function AccountItem({ data }) {
     return (
         <div>
             <Tippy interactive placement="bottom" offset={[-20, 2]} delay={[800, 0]} render={renderPreview}>
                 <div className={cx('account-item')}>
-                    <img
-                        className={cx('avatar')}
-                        src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/65d3c6b1d1e205c75536ccf1f26d552d~c5_100x100.jpeg?x-expires=1678381200&x-signature=N%2B4iNFP%2FVXKTPjrb0XFCBkrJAb4%3D"
-                        alt="img"
-                    />
+                    <img className={cx('avatar')} src={data.avatar} alt="img" />
                     <div className={cx('item-info')}>
                         <p className={cx('nickname')}>
-                            <strong>tnhiep_</strong>
-                            <FontAwesomeIcon icon={faCheckCircle} className={cx('check')} />
+                            <strong>{data.nickname}</strong>
+                            {data.tick && <FontAwesomeIcon icon={faCheckCircle} className={cx('check')} />}
                         </p>
-                        <p className={cx('name')}>Trần Ngọc Hiệp</p>
+                        <p className={cx('name')}>{data.full_name}</p>
                     </div>
                 </div>
             </Tippy>

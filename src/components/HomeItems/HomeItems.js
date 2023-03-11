@@ -1,8 +1,11 @@
 import {
     faCheckCircle,
+    faChevronDown,
+    faCode,
     faCommentDots,
     faHeart,
     faMusic,
+    faPaperclip,
     faPause,
     faPlay,
     faShareNodes,
@@ -19,6 +22,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '../Button';
 import AccountPreview from '../AccountPreview';
 import styles from './HomeItems.module.scss';
+import { MessageIcon } from '../Icons';
+import { faFacebookF, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +49,6 @@ function HomeItems({ srcImg, srcVideo, following }) {
         function handleScroll() {
             const videoBottom = vidRef.current.getBoundingClientRect().bottom;
 
-            // Kiểm tra xem video có đang phát không
             if (videoBottom < 310 || videoBottom > window.innerHeight + 250) {
                 // Video đang phát, dừng nó
                 vidRef.current.pause();
@@ -80,6 +84,55 @@ function HomeItems({ srcImg, srcVideo, following }) {
                             <p className={cx('value-preview')}>
                                 Spreading good vibes, love and happiness since 1998 ✨💝 📧younes@totallymgmt.com
                             </p>
+                        </div>
+                    </div>
+                </PopperWrapper>
+            </div>
+        );
+    };
+
+    const renderActionItems = (props) => {
+        return (
+            <div tabIndex="-1" {...props}>
+                <PopperWrapper>
+                    <div className={cx('wrapper-action-share')}>
+                        <div className={cx('wrapper-action-item')}>
+                            <div className={cx('wrapper-action-icon', 'code')}>
+                                <FontAwesomeIcon className={cx('child-icon-action-share')} icon={faCode} />
+                            </div>
+                            <p className={cx('child-title-action-share')}>Nhúng</p>
+                        </div>
+
+                        <div className={cx('wrapper-action-item')}>
+                            <div className={cx('wrapper-action-icon', 'share')}>
+                                <MessageIcon width="1.8rem" />
+                            </div>
+                            <p className={cx('child-title-action-share')}>Send to Friend</p>
+                        </div>
+
+                        <div className={cx('wrapper-action-item')}>
+                            <div className={cx('wrapper-action-icon', 'facebook')}>
+                                <FontAwesomeIcon className={cx('child-icon-action-share')} icon={faFacebookF} />
+                            </div>
+                            <p className={cx('child-title-action-share')}>Share to Facebook</p>
+                        </div>
+
+                        <div className={cx('wrapper-action-item')}>
+                            <div className={cx('wrapper-action-icon', 'whatsapp')}>
+                                <FontAwesomeIcon className={cx('child-icon-action-share')} icon={faWhatsapp} />
+                            </div>
+                            <p className={cx('child-title-action-share')}>Share to WhatsApp</p>
+                        </div>
+
+                        <div className={cx('wrapper-action-item')}>
+                            <div className={cx('wrapper-action-icon', 'link')}>
+                                <FontAwesomeIcon className={cx('child-icon-action-share')} icon={faPaperclip} />
+                            </div>
+                            <p className={cx('child-title-action-share')}>Sao chép liên kết</p>
+                        </div>
+
+                        <div className={cx('wrapper-share-more')}>
+                            <FontAwesomeIcon icon={faChevronDown} className={cx('icon-action-share-more')} />
                         </div>
                     </div>
                 </PopperWrapper>
@@ -199,12 +252,21 @@ function HomeItems({ srcImg, srcVideo, following }) {
                             </span>
                             <p className={cx('value')}>1299</p>
                         </button>
-                        <button className={cx('action-item')}>
-                            <span className={cx('wrapper-icon')}>
-                                <FontAwesomeIcon icon={faShareNodes} className={cx('icon-action')} />
-                            </span>
-                            <p className={cx('value')}>225</p>
-                        </button>
+                        <Tippy
+                            interactive
+                            placement="top-start"
+                            offset={[-10, 0]}
+                            delay={[0, 500]}
+                            zIndex={10}
+                            render={renderActionItems}
+                        >
+                            <button className={cx('action-item')}>
+                                <span className={cx('wrapper-icon')}>
+                                    <FontAwesomeIcon icon={faShareNodes} className={cx('icon-action')} />
+                                </span>
+                                <p className={cx('value')}>225</p>
+                            </button>
+                        </Tippy>
                     </div>
                 </div>
             </div>
